@@ -1,0 +1,13 @@
+Flask-Migrate==2.6.0
+Flask-SQLAlchemy==2.4.4
+geoalchemy2==0.8.4
+pyproj==2.6.1
+shapely==1.7.1
+geopandas==0.8.1
+psycopg2==2.8.4
+Flask==1.1.2
+Flask-WTF==0.14.3
+flask-executor==0.9.3
+flask-cors==3.0.9
+apispec==4.0.0
+apispec-webframeworks==0.5.2

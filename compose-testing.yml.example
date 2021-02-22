@@ -1,0 +1,40 @@
+# vim: set syntax=yaml:
+
+version: '3.6'
+
+services:
+
+  # note: this is not actually a service, we intend to run it only `docker-compose run`
+  nosetests:
+
+    image: "opertusmundi/ingest:${VERSION}-testing"
+    build:
+      context: .
+      dockerfile: testing.dockerfile
+      args:
+        VERSION: "${VERSION}"
+
+    command: ['-v']
+
+    volumes:
+    - type: 'bind'
+      source: .
+      target: '/work'
+
+    working_dir: /work
+    user: "1000:1000"
+
+    networks:
+    - 'opertusmundi_network'
+
+    environment:
+      OUTPUT_DIR: '/work/output'
+      POSTGRES_HOST: 'localhost'
+      POSTGRES_PORT: '5432'
+      POSTGRES_USER: 'opertus'
+      POSTGRES_DB_NAME: 'geometry_service'
+      POSTGRES_PASS: 'opertus'
+
+networks:
+  opertusmundi_network:
+    external: true

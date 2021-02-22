@@ -1,0 +1,58 @@
+# vim: set syntax=yaml:
+
+version: '3.6'
+
+services:
+
+  geometry:
+    image: "opertusmundi/geometry:${VERSION}"
+    build:
+      context: .
+      args:
+        VERSION: "${VERSION}"
+
+    volumes:
+    - type: 'bind'
+      source: './logs'
+      target: '/var/local/geometry_service/logs'
+    - type: 'bind'
+      source: './secrets/secret_key'
+      target: '/secrets/secret_key'
+      read_only: true
+    - type: 'bind'
+      source: './secrets/postgres/password'
+      target: '/secrets/postgres/password'
+      read_only: true
+    - type: 'bind'
+      source: './output'
+      target: '/var/local/geometry_service/output'
+    - type: 'bind'
+      source: './temp'
+      target: '/tmp'
+
+    networks:
+    - 'opertusmundi_network'
+
+    ports:
+    - '5000:5000'
+
+    environment:
+      FLASK_ENV: "${FLASK_ENV}"
+      FLASK_DEBUG: "${FLASK_DEBUG}"
+      OUTPUT_DIR: '/var/local/geometry_service/output'
+      LOGGING_ROOT_LEVEL: 'INFO'
+      CORS: '*'
+      SECRET_KEY_FILE: '/secrets/secret_key'
+      TOKEN_HEADER: 'X-Token'
+      MAX_RESULTS_PAGE: 50
+      CLEANUP_INTERVAL: 1440
+      WORKING_DIR: '/tmp/geometry_service'
+      POSTGRES_HOST: 'postgres-1-opertusmundi'
+      POSTGRES_PORT: '5432'
+      POSTGRES_USER: 'geometry_service'
+      POSTGRES_DB_NAME: 'opertusmundi_geometry'
+      POSTGRES_PASS_FILE: '/secrets/postgres/password'
+
+networks:
+  opertusmundi_network:
+    external: true
