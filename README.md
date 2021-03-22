@@ -46,6 +46,7 @@ The following environment variables should be set:
 * `TOKEN_HEADER`: The header used for the session token (*default*: 'X-Token').
 * `CLEANUP_INTERVAL`: If a session remains idle for this time interval, it is considered as inactive and all data associated with it (database tables/views and files) are cleaned (in minutes; *default*: 1440).
 * `MAX_RESULTS_PAGE`: The maximum results per page for the paginated views (*default*: 50).
+
 <sup>*</sup> Required.
 
 ### Database
@@ -59,7 +60,7 @@ flask db upgrade
 
 ## Usage
 
-For details about using the service API, you can browse the full [OpenAPI documentation](https://opertusmundi.github.io/geometry-service/).
+For details about using the service API, you can browse the full [OpenAPI documentation](https://opertusmundi.github.io/geometry-pgis-service/).
 
 ## Build and run as a container
 
